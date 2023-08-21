@@ -24,6 +24,7 @@ public class User {
     //@TableId
     private Long id;
     //@TableField("name")
+    //@TableField(condition = SqlCondition.LIKE)
     private String name;
     private Integer age;
     private String email;

@@ -128,4 +128,24 @@ class MybatisPlusApplicationTests {
         users.forEach(System.out::println);
     }
 
+    @Test
+    void selectWrapper5Test() {
+        QueryWrapper<User> queryWrapper = Wrappers.query(User.builder().name("习近平").build());
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    void selectWrapper6Test() {
+        QueryWrapper<User> queryWrapper = Wrappers.query();
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "王天风");
+        map.put("age", null);
+        //queryWrapper.allEq(map);
+        //queryWrapper.allEq(map, false);
+        queryWrapper.allEq((k,v) -> !k.equals("name"),map);
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
+    }
+
 }
