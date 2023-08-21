@@ -17,9 +17,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+//@TableName("user")
 public class User {
 
+    //@TableId
     private Long id;
+    //@TableField("name")
     private String name;
     private Integer age;
     private String email;
