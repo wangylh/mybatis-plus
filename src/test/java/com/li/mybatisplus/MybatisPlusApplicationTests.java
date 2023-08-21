@@ -2,9 +2,11 @@ package com.li.mybatisplus;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.li.mybatisplus.dao.UserMapper;
 import com.li.mybatisplus.entity.User;
 import org.junit.jupiter.api.Test;
@@ -196,5 +198,38 @@ class MybatisPlusApplicationTests {
         query.eq(User::getName, "习近平");
         List<User> users = userMapper.selectAll(query);
         users.forEach(System.out::println);
+    }
+
+    @Test
+    void selectWrapper11Test() {
+        Page<User> page = new Page<>(1, 2);
+        IPage<User> iPage = userMapper.selectPage(page, null);
+        System.out.println("总页数:" + iPage.getPages());
+        System.out.println("总记录数:" + iPage.getTotal());
+        List<User> records = iPage.getRecords();
+        records.forEach(System.out::println);
+    }
+
+    @Test
+    void selectWrapper12Test() {
+        IPage<Map<String, Object>> iPage = new Page<>(1, 2, false);
+        IPage<Map<String, Object>> mapIPage = userMapper.selectMapsPage(iPage, null);
+        System.out.println("总页数:" + mapIPage.getPages());
+        System.out.println("总记录数:" + mapIPage.getTotal());
+        List<Map<String, Object>> records = iPage.getRecords();
+        records.forEach(System.out::println);
+
+    }
+
+    @Test
+    void selectWrapper13Test() {
+        LambdaQueryWrapper<User> query = Wrappers.lambdaQuery();
+        Page<User> page = new Page<>(1, 2);
+        IPage<User> iPage = userMapper.selectUserPage(page, query);
+        System.out.println("总页数:" + iPage.getPages());
+        System.out.println("总记录数:" + iPage.getTotal());
+        List<User> records = iPage.getRecords();
+        records.forEach(System.out::println);
+
     }
 }
