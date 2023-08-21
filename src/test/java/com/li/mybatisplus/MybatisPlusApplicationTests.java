@@ -1,8 +1,10 @@
 package com.li.mybatisplus;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.li.mybatisplus.dao.UserMapper;
 import com.li.mybatisplus.entity.User;
 import org.junit.jupiter.api.Test;
@@ -172,4 +174,19 @@ class MybatisPlusApplicationTests {
         System.out.println(user);
     }
 
+    @Test
+    void selectWrapper8Test() {
+        //LambdaQueryWrapper<User> lambda = new QueryWrapper<User>().lambda();
+        //LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.likeRight(User::getName, "王").and(lqw -> lqw.lt(User::getAge, 40).or().isNotNull(User::getEmail));
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    void selectWrapper9Test() {
+        List<User> list = new LambdaQueryChainWrapper<>(userMapper).eq(User::getAge, 40).list();
+        list.forEach(System.out::println);
+    }
 }
