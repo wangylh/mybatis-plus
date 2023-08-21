@@ -25,4 +25,10 @@ public class InsertTest {
         User user = User.builder().name("习近平").age(60).managerId(1087982257332887553L).createTime(LocalDateTime.now()).build();
         userMapper.insert(user);
     }
+
+    @Test
+    void insertTest1(){
+        User user = User.builder().name("李强").age(60).managerId(1087982257332887553L).createTime(LocalDateTime.now()).remark("备注").build();
+        userMapper.insert(user);
+    }
 }

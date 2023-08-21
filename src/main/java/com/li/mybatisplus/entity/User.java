@@ -1,5 +1,6 @@
 package com.li.mybatisplus.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,4 +30,8 @@ public class User {
     private Long managerId;
     private LocalDateTime createTime;
 
+    //private transient String remark;
+    //private static String remark;
+    @TableField(exist = false)
+    private String remark;
 }
