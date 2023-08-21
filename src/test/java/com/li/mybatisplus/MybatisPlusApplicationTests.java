@@ -148,4 +148,28 @@ class MybatisPlusApplicationTests {
         users.forEach(System.out::println);
     }
 
+    @Test
+    void selectWrapper7Test() {
+        QueryWrapper<User> queryWrapper = Wrappers.query();
+        queryWrapper.select("id", "name");
+        List<Map<String, Object>> maps = userMapper.selectMaps(queryWrapper);
+        maps.forEach(System.out::println);
+
+        queryWrapper.clear();
+        queryWrapper.select("avg(age)", "min(age) minage", "max(age) maxage").groupBy("manager_id").having("sum(age)<{0}", 500);
+        List<Map<String, Object>> maps1 = userMapper.selectMaps(queryWrapper);
+        maps1.forEach(System.out::println);
+
+        queryWrapper.clear();
+        List<Object> objects = userMapper.selectObjs(queryWrapper);
+        objects.forEach(System.out::println);
+
+        Long aLong = userMapper.selectCount(queryWrapper);
+        System.out.println(aLong);
+
+        queryWrapper.allEq(new HashMap<String, String>(){{put("name","习近平");}});
+        User user = userMapper.selectOne(queryWrapper);
+        System.out.println(user);
+    }
+
 }
