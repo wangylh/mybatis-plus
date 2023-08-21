@@ -189,4 +189,12 @@ class MybatisPlusApplicationTests {
         List<User> list = new LambdaQueryChainWrapper<>(userMapper).eq(User::getAge, 40).list();
         list.forEach(System.out::println);
     }
+
+    @Test
+    void selectWrapper10Test() {
+        LambdaQueryWrapper<User> query = Wrappers.lambdaQuery();
+        query.eq(User::getName, "习近平");
+        List<User> users = userMapper.selectAll(query);
+        users.forEach(System.out::println);
+    }
 }
