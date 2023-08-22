@@ -64,5 +64,6 @@ public class UpdateTest {
     void updateTest5() {
         boolean update = new LambdaUpdateChainWrapper<>(userMapper).set(User::getName, "胡锦涛").eq(User::getName, "韩正").update();
         System.out.println("影响记录数" + update);
+
     }
 }
